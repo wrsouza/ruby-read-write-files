@@ -23,7 +23,7 @@ def write_file()
 
     file = File.open("database.csv", "w")
     file.write(text)
-    file.close
+    file.close # [IMPORTANT!!!] close the file after write
 end
 
 def render_text(list)
@@ -56,10 +56,16 @@ def read_file()
         convert_into_data(list_array, line) # convert line and insert into array
         convert_into_object(list_object, line) # convert line in object and insert into array
     end
-    file.close
-
+    file.close # [IMPORTANT!!!] close the file after read
+    
+    puts " " # print with space
     puts list_array.to_s # print array in string format
+    
+    puts " " # print with space
     puts list_object.to_s # print array object in string format
+
+    puts " " # print with space
+    puts "full name is: " + list_object[1].get_fullname # print second object in array with fullname (John Doe)
 end
 
 def convert_into_data(list, line)
