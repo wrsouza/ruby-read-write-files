@@ -3,6 +3,9 @@
 # https://dev.to/shahershamroukh/working-with-folders-files-in-ruby-2l97
 # https://www.youtube.com/watch?v=W5C1PKODOgU
 # https://www.rubyguides.com/2015/05/working-with-files-ruby/
+# https://medium.com/codex/ruby-classes-objects-methods-4568b9f443d7
+
+require_relative "person.rb"
 
 def get_list()
     list = []
@@ -46,20 +49,36 @@ end
 def read_file()
     file = File.open("database.csv", "r")
     
-    list = []
+    list_array = []
+    list_object = []
     file.readlines.each.with_index do |line,index|
         puts index.to_s + ": " + line # print line with index number
-        convert_into_data(list, line)
+        convert_into_data(list_array, line) # convert line and insert into array
+        convert_into_object(list_object, line) # convert line in object and insert into array
     end
     file.close
 
-    puts list.to_s # print array in string format
+    puts list_array.to_s # print array in string format
+    puts list_object.to_s # print array object in string format
 end
 
 def convert_into_data(list, line)
-    line = line.sub! "\r\n", "" # remove character
+    line.sub! "\r\n", "" # remove special character
     data = line.split(/,/) # convert into array
     list << data # insert array data into array list
+end
+
+def convert_into_object(list, line)
+    line.sub! "\r\n", "" # remove special character
+    data = line.split(/,/) # convert into array
+
+    person = Person.new()
+    person.firstname = data[0]
+    person.lastname = data[1]
+    person.email = data[2]
+    person.password = data[3]
+    
+    list << person # insert array data into array list
 end
 
 write_file()
